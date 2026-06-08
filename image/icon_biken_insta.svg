@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="grad-biken-ig" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9c83e2" />
+      <stop offset="100%" stop-color="#dcd6f7" />
+    </linearGradient>
+  </defs>
+  <!-- Authentic Instagram Shape in Gradient Line (Scale and center) -->
+  <g transform="translate(10, 10) scale(0.8)">
+    <rect x="15" y="15" width="70" height="70" rx="19" fill="none" stroke="url(#grad-biken-ig)" stroke-width="6.5" />
+    <circle cx="50" cy="50" r="16" fill="none" stroke="url(#grad-biken-ig)" stroke-width="6.5" />
+    <circle cx="69" cy="31" r="5" fill="url(#grad-biken-ig)" />
+    <!-- A tiny elegant Lily flower bud on the side -->
+    <path d="M80,10 C84,17 88,17 80,24 C74,17 77,13 80,10 Z" fill="#9c83e2" />
+  </g>
+</svg>
