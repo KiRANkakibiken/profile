@@ -1,5 +1,5 @@
 /**
- * 髙橋 葵 Official Profile — Script v3.0
+ * 髙橋 葵 Official Profile — Script v3.1
  * Theme switching & accordion interactions
  */
 
@@ -11,10 +11,15 @@
   const body = document.body;
   const toggle = document.getElementById('theme-toggle');
 
-  let currentIndex = THEMES.indexOf(
-    [...body.classList].find(c => c.startsWith('theme-')) || 'theme-mix'
-  );
-  if (currentIndex < 0) currentIndex = 1;
+  // Find active theme index in a highly compatible way
+  let currentIndex = 1; // Default to theme-mix
+  if (body) {
+    if (body.classList.contains('theme-kiran')) {
+      currentIndex = 0;
+    } else if (body.classList.contains('theme-biken')) {
+      currentIndex = 2;
+    }
+  }
 
   // Restore persisted theme
   let saved = null;
@@ -23,50 +28,56 @@
   } catch (e) {
     console.warn('localStorage is not accessible:', e);
   }
-  if (saved && THEMES.includes(saved)) {
-    body.classList.remove(...THEMES);
+  if (saved && THEMES.includes(saved) && body) {
+    body.classList.remove('theme-kiran', 'theme-mix', 'theme-biken');
     body.classList.add(saved);
     currentIndex = THEMES.indexOf(saved);
   }
 
-  toggle.addEventListener('click', () => {
-    body.classList.remove(THEMES[currentIndex]);
-    currentIndex = (currentIndex + 1) % THEMES.length;
-    body.classList.add(THEMES[currentIndex]);
-    try {
-      localStorage.setItem('aoi-theme', THEMES[currentIndex]);
-    } catch (e) {
-      console.warn('localStorage is not writable:', e);
-    }
-  });
-
-  /* ━━ Accordion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-  document.querySelectorAll('.accordion').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = document.getElementById(btn.getAttribute('aria-controls'));
-      if (!target) return;
-
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!isOpen));
-
-      if (isOpen) {
-        target.hidden = true;
-      } else {
-        target.hidden = false;
-        // Smooth scroll into view
-        try {
-          requestAnimationFrame(() => {
-            if (typeof target.scrollIntoView === 'function') {
-              target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-          });
-        } catch (e) {
-          console.warn('scrollIntoView failed:', e);
-        }
+  if (toggle && body) {
+    toggle.addEventListener('click', () => {
+      body.classList.remove(THEMES[currentIndex]);
+      currentIndex = (currentIndex + 1) % THEMES.length;
+      body.classList.add(THEMES[currentIndex]);
+      try {
+        localStorage.setItem('aoi-theme', THEMES[currentIndex]);
+      } catch (e) {
+        console.warn('localStorage is not writable:', e);
       }
     });
-  });
+  }
 
+  /* ━━ Accordion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  const accordions = document.querySelectorAll('.accordion');
+  if (accordions && accordions.length > 0) {
+    accordions.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('aria-controls');
+        if (!targetId) return;
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!isOpen));
+
+        if (isOpen) {
+          target.hidden = true;
+        } else {
+          target.hidden = false;
+          // Smooth scroll into view
+          try {
+            requestAnimationFrame(() => {
+              if (typeof target.scrollIntoView === 'function') {
+                target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            });
+          } catch (e) {
+            console.warn('scrollIntoView failed:', e);
+          }
+        }
+      });
+    });
+  }
 
   /* ━━ Intersection Observer for entrance ━━━━━━━ */
   if ('IntersectionObserver' in window) {
