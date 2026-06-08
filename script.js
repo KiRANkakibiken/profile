@@ -17,7 +17,12 @@
   if (currentIndex < 0) currentIndex = 1;
 
   // Restore persisted theme
-  const saved = localStorage.getItem('aoi-theme');
+  let saved = null;
+  try {
+    saved = localStorage.getItem('aoi-theme');
+  } catch (e) {
+    console.warn('localStorage is not accessible:', e);
+  }
   if (saved && THEMES.includes(saved)) {
     body.classList.remove(...THEMES);
     body.classList.add(saved);
@@ -28,7 +33,11 @@
     body.classList.remove(THEMES[currentIndex]);
     currentIndex = (currentIndex + 1) % THEMES.length;
     body.classList.add(THEMES[currentIndex]);
-    localStorage.setItem('aoi-theme', THEMES[currentIndex]);
+    try {
+      localStorage.setItem('aoi-theme', THEMES[currentIndex]);
+    } catch (e) {
+      console.warn('localStorage is not writable:', e);
+    }
   });
 
   /* ━━ Accordion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -45,9 +54,15 @@
       } else {
         target.hidden = false;
         // Smooth scroll into view
-        requestAnimationFrame(() => {
-          target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        });
+        try {
+          requestAnimationFrame(() => {
+            if (typeof target.scrollIntoView === 'function') {
+              target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          });
+        } catch (e) {
+          console.warn('scrollIntoView failed:', e);
+        }
       }
     });
   });
