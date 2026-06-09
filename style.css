@@ -484,9 +484,12 @@ body {
 
 .about__text {
   font-size: 0.82rem;
-  line-height: 1.9;
+  line-height: 1.7;
   color: var(--text-secondary);
   letter-spacing: 0.02em;
+  margin-bottom: var(--sp-4);
+}
+.about__text:last-of-type {
   margin-bottom: var(--sp-6);
 }
 
@@ -845,6 +848,10 @@ body {
 @media (max-width: 480px) {
   .page {
     padding: var(--sp-4) var(--sp-3) var(--sp-9);
+  }
+
+  .card {
+    padding: var(--sp-6) var(--sp-5);
   }
 
   .card--hero {
