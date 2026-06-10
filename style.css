@@ -322,16 +322,18 @@ body {
 
 /* Custom logo sizing to balance visual weight (circle vs rectangle) */
 .hero__logo-box--kiran .hero__brand-logo {
-  height: 36px; /* standard height for landscape logo */
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  height: 52px;
+  width: 52px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
 }
 
 .hero__logo-box--biken .hero__brand-logo {
-  height: 52px; /* much larger height for the circle logo to make it legible */
-  border-radius: 50%; /* crop to circle to pop from background */
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12); /* shadow to define the boundaries */
-  background: #ffffff; /* clear white background to avoid transparent clashing */
+  height: 52px;
+  width: 52px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+  background: #ffffff;
 }
 
 .hero__logo-divider {
@@ -768,34 +770,7 @@ body {
   font-weight: 400;
 }
 
-/* Full-width LINE button for layout balance */
-.grid__item--line {
-  grid-column: 1 / -1;
-  flex-direction: row;
-  justify-content: flex-start;
-  padding: var(--sp-5) var(--sp-6);
-  gap: var(--sp-4);
-  text-align: left;
-}
 
-.grid__item--line .grid__text-group {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.grid__item--line .grid__title {
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.grid__item--line .grid__sub {
-  font-size: 0.68rem;
-}
-
-.grid__item--line .grid__icon {
-  flex-shrink: 0;
-}
 
 /* ━━ Footer ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .footer {
@@ -874,11 +849,13 @@ body {
   }
 
   .hero__logo-box--kiran .hero__brand-logo {
-    height: 26px;
+    height: 38px;
+    width: 38px;
   }
 
   .hero__logo-box--biken .hero__brand-logo {
     height: 38px;
+    width: 38px;
   }
 
   .hero__logo-box {
